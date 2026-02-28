@@ -7,6 +7,10 @@ from .security import SecurityCheck
 from .mobile import MobileCheck
 from .structured_data import StructuredDataCheck
 from .accessibility import AccessibilityCheck
+from .robots import RobotsCheck
+from .redirect import RedirectCheck
+from .keyword import KeywordCheck
+from .opengraph import OpenGraphCheck
 
 ALL_CHECKS = [
     MetaCheck,
@@ -16,6 +20,10 @@ ALL_CHECKS = [
     MobileCheck,
     StructuredDataCheck,
     AccessibilityCheck,
+    RobotsCheck,
+    RedirectCheck,
+    KeywordCheck,
+    OpenGraphCheck,
 ]
 
 __all__ = [
@@ -26,5 +34,9 @@ __all__ = [
     "MobileCheck",
     "StructuredDataCheck",
     "AccessibilityCheck",
+    "RobotsCheck",
+    "RedirectCheck",
+    "KeywordCheck",
+    "OpenGraphCheck",
     "ALL_CHECKS",
 ]

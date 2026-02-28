@@ -1,5 +1,6 @@
 """Mobile check - viewport, responsive hints, tap targets."""
 
+import requests
 from .base import BaseCheck
 
 
@@ -50,10 +51,9 @@ class MobileCheck(BaseCheck):
             result.add_issue("warning", "mobile", f"资源文件过多 ({total_resources}个)，影响移动端加载", 2)
 
     def _check_robots_txt(self, result):
-        import requests as req
         try:
             robots_url = f"https://{result.domain}/robots.txt"
-            r = req.get(robots_url, timeout=5, headers={"User-Agent": "SEO-Audit-CLI/2.0"})
+            r = requests.get(robots_url, timeout=5, headers={"User-Agent": "SEO-Audit-CLI/2.0"})
             if r.ok and len(r.text) > 0:
                 result.add_pass("mobile", "robots.txt存在")
                 result.details["robots_txt"] = True
@@ -67,10 +67,9 @@ class MobileCheck(BaseCheck):
             result.add_issue("warning", "mobile", "无法检查robots.txt", 1)
 
     def _check_sitemap(self, result):
-        import requests as req
         try:
             sitemap_url = f"https://{result.domain}/sitemap.xml"
-            r = req.get(sitemap_url, timeout=5, headers={"User-Agent": "SEO-Audit-CLI/2.0"})
+            r = requests.get(sitemap_url, timeout=5, headers={"User-Agent": "SEO-Audit-CLI/2.0"})
             if r.ok and "xml" in r.text[:500].lower():
                 result.add_pass("mobile", "sitemap.xml存在")
                 result.details["sitemap"] = True

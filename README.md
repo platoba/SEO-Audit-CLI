@@ -1,67 +1,107 @@
-# SEO Audit CLI
+# SEO Audit CLI v3.0
 
-🔍 Lightweight website SEO auditor. One command, full report.
+🔍 Comprehensive website SEO auditor. One command, 11 checks, full report.
+
+## Features
+
+- **11 SEO Check Modules**: Meta tags, links, performance, security, mobile, structured data, accessibility, robots.txt, redirects, keyword density, Open Graph
+- **Batch Scanning**: Audit multiple URLs from file
+- **Multiple Exports**: JSON, CSV, JSONL, Markdown, HTML, summary text
+- **Telegram Integration**: Send reports directly to Telegram
+- **Competitor Comparison**: Compare multiple sites side-by-side
+- **Scheduled Auditing**: Docker Compose with cron-like scheduling
 
 ## Install
 
 ```bash
-pip install requests
+pip install -e ".[reports,dev]"
 # or
-git clone https://github.com/platoba/SEO-Audit-CLI.git
+pip install requests
 ```
 
 ## Usage
 
 ```bash
+# Single URL audit
 python seo_audit.py example.com
 python seo_audit.py https://mysite.com -v        # verbose
 python seo_audit.py https://mysite.com --json     # JSON output
+
+# Batch audit
+python seo_audit.py --batch urls.txt --json --output results.json
+
+# Compare sites
+python seo_audit.py --compare site1.com site2.com site3.com
 ```
 
-## What It Checks
+## Check Modules (11)
 
-| Check | Impact |
-|-------|--------|
-| Title tag (length, existence) | High |
-| Meta description | High |
-| H1 tag (single, exists) | High |
-| Image alt attributes | Medium |
-| HTTPS | High |
-| Page load time | Medium |
-| robots.txt | Medium |
-| sitemap.xml | Medium |
-| Viewport meta | Medium |
-| Open Graph tags | Low |
-| Canonical tag | Medium |
-| Page size | Low |
-| Internal/external links | Low |
+| # | Module | What It Checks | Impact |
+|---|--------|---------------|--------|
+| 1 | **Meta** | Title, description, canonical, charset | 🔴 High |
+| 2 | **Links** | Internal/external, broken, nofollow | 🔴 High |
+| 3 | **Performance** | Load time, page size, Core Web Vitals | 🔴 High |
+| 4 | **Security** | HTTPS, HSTS, CSP, X-Frame-Options | 🔴 High |
+| 5 | **Mobile** | Viewport, font size, tap targets | 🟡 Medium |
+| 6 | **Structured Data** | JSON-LD, Microdata, Schema.org | 🟡 Medium |
+| 7 | **Accessibility** | ARIA, skip links, alt text, landmarks | 🟡 Medium |
+| 8 | **Robots.txt** | Directives, sitemaps, crawl-delay, blocks | 🔴 High |
+| 9 | **Redirects** | Chain length, 301/302, loops, mixed protocol | 🔴 High |
+| 10 | **Keywords** | Density, n-grams, stuffing, title alignment | 🟡 Medium |
+| 11 | **Open Graph** | OG tags, Twitter Cards, image validation | 🟡 Medium |
 
-## Output
+## Export Formats
 
+```bash
+# JSON
+python seo_audit.py example.com --json
+
+# CSV (batch)
+python seo_audit.py --batch urls.txt --format csv --output results.csv
+
+# Summary text
+python seo_audit.py --batch urls.txt --format summary
 ```
-===========================================================
-  SEO Audit Report: https://example.com
-  Score: 87/100 (B)
-===========================================================
 
-  📝 Title: Example Domain
-  📋 Description: This domain is for use in illustrative examples...
-  ⚡ Load time: 0.3s
-  🔗 Links: 1 internal, 0 external
+## Docker
 
-  ❌ Issues (1):
-    • 缺少H1标签
+```bash
+# Build
+docker build -t seo-audit-cli .
 
-  ⚠️ Warnings (2):
-    • 描述太短 (28字符，建议120-155)
-    • 没有图片使用lazy loading
+# Run
+docker run --rm seo-audit-cli example.com
+
+# Scheduled auditing
+docker compose up -d seo-audit-scheduled
+
+# Run tests
+docker compose run --rm test
+```
+
+## Telegram
+
+```bash
+export TELEGRAM_BOT_TOKEN=your_token
+export TELEGRAM_CHAT_ID=your_chat_id
+python seo_audit.py example.com --telegram
+```
+
+## Development
+
+```bash
+make install    # Install deps
+make test       # Run tests
+make lint       # Lint code
+make test-cov   # Coverage report
+```
+
+## Tests
+
+```bash
+python -m pytest tests/ -v --tb=short
 ```
 
 ## License
 
 MIT
-
-## 🔗 Related
-
-- [Shopify-Scout](https://github.com/platoba/Shopify-Scout) - Shopify store analyzer
-- [AI-Listing-Writer](https://github.com/platoba/AI-Listing-Writer) - AI listing generator

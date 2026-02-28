@@ -1,0 +1,47 @@
+version: "3.8"
+
+services:
+  # One-shot audit
+  seo-audit:
+    build: .
+    container_name: seo-audit-cli
+    volumes:
+      - ./output:/app/output
+    environment:
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN:-}
+      - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID:-}
+    entrypoint: ["python", "seo_audit.py"]
+    command: ["--help"]
+
+  # Scheduled audit (cron-like)
+  seo-audit-scheduled:
+    build: .
+    container_name: seo-audit-scheduled
+    restart: unless-stopped
+    volumes:
+      - ./output:/app/output
+      - ./urls.txt:/app/urls.txt:ro
+    environment:
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN:-}
+      - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID:-}
+      - AUDIT_INTERVAL=${AUDIT_INTERVAL:-3600}
+    entrypoint: ["sh", "-c"]
+    command:
+      - |
+        while true; do
+          echo "[$(date)] Running scheduled audit..."
+          if [ -f /app/urls.txt ]; then
+            python seo_audit.py --batch /app/urls.txt --json --output /app/output/batch_$(date +%Y%m%d_%H%M%S).json
+          fi
+          echo "[$(date)] Sleeping $${AUDIT_INTERVAL}s..."
+          sleep $${AUDIT_INTERVAL}
+        done
+
+  # Test runner
+  test:
+    build: .
+    container_name: seo-audit-test
+    entrypoint: ["python", "-m", "pytest"]
+    command: ["tests/", "-v", "--tb=short"]
+    volumes:
+      - ./tests:/app/tests
