@@ -1,10 +1,10 @@
-# SEO Audit CLI v3.0
+# SEO Audit CLI v3.1
 
-🔍 Comprehensive website SEO auditor. One command, 11 checks, full report.
+🔍 Comprehensive website SEO auditor. One command, 12 checks, full report.
 
 ## Features
 
-- **11 SEO Check Modules**: Meta tags, links, performance, security, mobile, structured data, accessibility, robots.txt, redirects, keyword density, Open Graph
+- **12 SEO Check Modules**: Meta tags, links, performance, security, mobile, structured data, accessibility, robots.txt, redirects, keyword density, Open Graph
 - **Batch Scanning**: Audit multiple URLs from file
 - **Multiple Exports**: JSON, CSV, JSONL, Markdown, HTML, summary text
 - **Telegram Integration**: Send reports directly to Telegram
@@ -49,6 +49,7 @@ python seo_audit.py --compare site1.com site2.com site3.com
 | 9 | **Redirects** | Chain length, 301/302, loops, mixed protocol | 🔴 High |
 | 10 | **Keywords** | Density, n-grams, stuffing, title alignment | 🟡 Medium |
 | 11 | **Open Graph** | OG tags, Twitter Cards, image validation | 🟡 Medium |
+| 12 | **Keyword Gap** | Keyword diversity, competitor gaps, content coverage | 🟡 Medium |
 
 ## Export Formats
 

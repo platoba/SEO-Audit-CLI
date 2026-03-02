@@ -11,6 +11,7 @@ from .robots import RobotsCheck
 from .redirect import RedirectCheck
 from .keyword import KeywordCheck
 from .opengraph import OpenGraphCheck
+from .keyword_gap import KeywordGapCheck
 
 ALL_CHECKS = [
     MetaCheck,
@@ -24,6 +25,7 @@ ALL_CHECKS = [
     RedirectCheck,
     KeywordCheck,
     OpenGraphCheck,
+    KeywordGapCheck,
 ]
 
 __all__ = [
@@ -38,5 +40,6 @@ __all__ = [
     "RedirectCheck",
     "KeywordCheck",
     "OpenGraphCheck",
+    "KeywordGapCheck",
     "ALL_CHECKS",
 ]

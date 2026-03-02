@@ -1,3 +1,13 @@
+## [3.1.0] - 2026-03-03
+
+### Added
+- **Keyword Gap Analyzer** (`audit/checks/keyword_gap.py`): Competitor keyword gap analysis with keyword extraction, bigram analysis, diversity scoring, coverage metrics, and actionable recommendations for content strategy
+- 11 comprehensive test cases for keyword gap functionality
+- KeywordGapCheck integration into audit framework
+
+### Changed
+- Check modules: 11 → 12 (+keyword_gap)
+- Total test count: 265 tests passing
 # Changelog
 
 ## [3.0.0] - 2026-02-28
