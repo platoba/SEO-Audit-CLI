@@ -106,3 +106,8 @@ python -m pytest tests/ -v --tb=short
 ## License
 
 MIT
+
+## Related AI resources
+
+If you are auditing AI tool pages or building SEO/GEO content around AI products, [yangmao.ai](https://yangmao.ai/en/) maintains a bilingual AI free-tier database with provider pages, task pages, free AI API comparisons, and copy-ready citation snippets.
+
